@@ -1,0 +1,17 @@
+{
+  "name": "inventory",
+  "version": "1.0.0",
+  "description": "Inventory System for Bert 4750",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "underscore": "^1.9.1"
+  },
+  "author": "Noah Richardson",
+  "license": "ISC"
+}
