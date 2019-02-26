@@ -79,7 +79,7 @@ function startOrderForm(obj) {
 function search() {
   var term = $('#searchBox').val(); // Gets the search term
   var items = $('.item'); // Gets every item
-  for (var i = 1; i < items.length; i++) { // For each item
+  for (var i = 0; i < items.length; i++) { // For each item
     if (!$(items[i].childNodes[0].childNodes[0].childNodes[0]).children('.itemName').children()[0].value.toLowerCase().includes(term.toLowerCase())) { // If the item name does not contain the search term
       $(items[i]).hide(); // Hide the item
     } else { // Otherwise
@@ -339,14 +339,27 @@ function deleteSelected() {
  */
 function checkForDuplicates() {
   var exists = []; // Empty array
-  for (var i = 0; i < $('.item').find('.itemName').length; i++) { // For each item
+  var color = '#d3d3d3'; // Default color
+  var otherColor = '#d3d3d3'; // Default other color
+  for (var i = 0; i < $('.item').length; i++) { // For each item
     var name = $('.item').find('.itemName')[i].childNodes[0].value; // Get the item name
+    var amount = $('.item').find('.itemAmount')[i].childNodes[0].value; // Get the item amount
     if (exists.includes(name) && exists.indexOf(name) != i) { // If the name exists already
-      $('.item')[i + 1].style.borderColor = '#ffae42'; // Change the border color to yellow
-      $('#' + exists.indexOf(name)).css('border-color', '#ffae42'); // Change the border color of the other item to yellow
+      color = '#ffae42'; // Set the color to yellow
+      otherColor = '#ffae42';
+      if (amount == '' || amount == 0) { // If the amount is 0
+        color = '#cc0000'; // Set the color to red
+      }
+      $('.item')[i].style.borderColor = color; // Change the border color
+      $('#' + exists.indexOf(name)).css('border-color', otherColor); // Change the border color of the other item
     } else { // Otherwise
-      $('.item')[i + 1].style.borderColor = '#d3d3d3'; // Change the border color to gray
-      $('#' + exists.indexOf(name)).css('border-color', '#d3d3d3'); // Change the border color of the other item to gray
+      color = '#d3d3d3';
+      otherColor = '#d3d3d3';
+      if (amount == '' || amount == 0) { // If the amount is blank or is equal to 0
+        color = '#cc0000'; // Set the color to red
+      }
+      $('.item')[i].style.borderColor = color; // Change the border color
+      $('#' + exists.indexOf(name)).css('border-color', otherColor); // Change the border color of the other item
     }
     exists.push(name); // Add the item name to exists
   }
@@ -357,12 +370,6 @@ function checkForDuplicates() {
  */
 function checkIfOut() {
   for (var i = 0; i < $('.item').find('.itemAmount').length; i++) { // For each item
-    var amount = $('.item').find('.itemAmount')[i].childNodes[0].value; // Get the item amount
-    if (amount == '' || amount == 0) { // If the amount is blank or is equal to 0
-      $('.item').find('.itemAmount')[i].parentNode.parentNode.parentNode.parentNode.style.borderColor = '#cc0000'; // Change the border color to red
-    } else { // Otherwise
-      $('.item').find('.itemAmount')[i].parentNode.parentNode.parentNode.parentNode.style.borderColor = '#d3d3d3'; // Change the border color to gray
-    }
   }
 }
 

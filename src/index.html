@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bert Inventory</title>
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="/storage"/>
-    <link rel="stylesheet" href="/styles" />
-  </head>
-  <body>
-    <div id='message-box'>
-      <p id='message'>Saved!</p>
+
+<head>
+  <title>Bert Inventory</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="/storage" />
+  <link rel="stylesheet" href="/styles" />
+</head>
+
+<body>
+  <div id='message-box'>
+    <p id='message'>Saved!</p>
+  </div>
+  <h1 style="text-align: center;">Beʳᵗ Inventory</h1>
+  <div class="search">
+    <img src="/search" width="20" height="20" style="float: right; margin-top: 3px;" title="Search" />
+    <input id="searchBox" style="float: right; margin-right: 10px;" oninput="search()" title="Search"></input>
+  </div>
+  <div id="head">
+    <table>
+      <tr>
+        <td class="item-header" style="width: 5%;">Select Part</td>
+        <td class="item-header" style="width: 13%;">Part Name</td>
+        <td class="item-header" style="padding-left: 40px;">Part Location</td>
+        <td class="item-header" style="padding-left: 40px;">Part Amount</td>
+        <td class="item-header">Last Counter</td>
+        <td class="item-header" style="padding-left: 25px;">Date Last Counted</td>
+        <td class="item-header">Order Form</td>
+      </tr>
+    </table>
+  </div>
+  <div id="data-container">
+  </div>
+  <div id="buttons" style="width: 80%; margin: 10px auto;">
+    <img src="/delete" width="30" height="30" onclick="deleteSelected()" class="button" style="float: right; padding-left: 10px;"
+      title="Delete selected" />
+    <img src="/add" width="20" height="20" onclick="newItem.toggle()" class="button" style="float: right; margin-top: 5px;"
+      title="Add new" />
+  </div>
+  <div id="createOrderForm" class="modal">
+    <span class="close button" onclick="orderForm.toggle()">&times;</span>
+    <div class="modal-div">
+      <h2>Generate Order Form</h2>
+      Amount to Order: <input id="order-form-amount" type="number" placeholder="Number of Parts..."></input><br>
+      Price per Unit: $<input id="order-form-price" type="number" placeholder="Price per Unit..."></input><br>
+      Order Creator: <select id="order-form-creator"></select><br>
+      Sub-Team: <select id="order-form-team"></select><br>
+      Priority: <select id="order-form-priority"></select><br>
+      Notes: <textarea id="order-form-notes" placeholder="Notes..."></textarea><br><br>
+      <button onclick="createOrderForm(this)" class="button" style="height: 30px; background-color: transparent; border: solid 1px black; border-radius: 6px;">Generate
+        Order Form</button>
     </div>
-    <h1 style="text-align: center;">Beʳᵗ Inventory</h1>
-    <div class="search">
-      <img src="/search" width="20" height="20" style="float: right; margin-top: 3px;" title="Search" />
-      <input id="searchBox" style="float: right; margin-right: 10px;" oninput="search()" title="Search" ></input>
+  </div>
+  <div id="newItem" class="modal">
+    <span class="close button" onclick="newItem.toggle()">&times;</span>
+    <div class="modal-div">
+      <h2>Add Part</h2>
+      Part Name: <input id="new-item-name" type="text" placeholder="Part Name..."></input><br>
+      Part Location: <select id="new-item-location"></select><br>
+      Part Amount: <input id="new-item-amount" type="number" placeholder="Part Amount..."></input><br>
+      Counter: <select id="new-item-counter"></select><br>
+      Part Link: <input id="new-item-link" type="url" placeholder="Part Link..."></input><br>
+      <button onclick="add()" class="button" style="height: 30px; background-color: transparent; border: solid 1px black; border-radius: 6px;">Add
+        Part</button>
     </div>
-    <div class="item">
-      <table>
-        <tr>
-          <td class="item-header" style="width: 5%;">Select Part</td>
-          <td class="item-header" style="width: 13%;">Part Name</td>
-          <td class="item-header" style="padding-left: 40px;">Part Location</td>
-          <td class="item-header" style="padding-left: 40px;">Part Amount</td>
-          <td class="item-header">Last Counter</td>
-          <td class="item-header" style="padding-left: 25px;">Date Last Counted</td>
-          <td class="item-header">Order Form</td>
-        </tr>
-      </table>
-    </div>
-    <div id="data-container">
-    </div>
-    <div id="buttons" style="width: 80%; margin: 10px auto;">
-      <img src="/delete" width="30" height="30" onclick="deleteSelected()" class="button" style="float: right; padding-left: 10px;" title="Delete selected" />
-      <img src="/add" width="20" height="20" onclick="newItem.toggle()" class="button" style="float: right; margin-top: 5px;" title="Add new" />
-    </div>
-    <div id="createOrderForm" class="modal">
-      <span class="close button" onclick="orderForm.toggle()">&times;</span>
-      <div class="modal-div">
-        <h2>Generate Order Form</h2>
-        Amount to Order: <input id="order-form-amount" type="number" placeholder="Number of Parts..."></input><br>
-        Price per Unit: $<input id="order-form-price" type="number" placeholder="Price per Unit..."></input><br>
-        Order Creator: <select id="order-form-creator"></select><br>
-        Sub-Team: <select id="order-form-team"></select><br>
-        Priority: <select id="order-form-priority"></select><br>
-        Notes: <textarea id="order-form-notes" placeholder="Notes..."></textarea><br><br>
-        <button onclick="createOrderForm(this)" class="button" style="height: 30px; background-color: transparent; border: solid 1px black; border-radius: 6px;">Generate Order Form</button>
-      </div>
-    </div>
-    <div id="newItem" class="modal">
-      <span class="close button" onclick="newItem.toggle()">&times;</span>
-      <div class="modal-div">
-        <h2>Add Part</h2>
-        Part Name: <input id="new-item-name" type="text" placeholder="Part Name..."></input><br>
-        Part Location: <select id="new-item-location"></select><br>
-        Part Amount: <input id="new-item-amount" type="number" placeholder="Part Amount..."></input><br>
-        Counter: <select id="new-item-counter"></select><br>
-        Part Link: <input id="new-item-link" type="url" placeholder="Part Link..."></input><br>
-        <button onclick="add()" class="button" style="height: 30px; background-color: transparent; border: solid 1px black; border-radius: 6px;">Add Part</button>
-      </div>
-    </div>
-    <script src="/jquery" type="text/javascript"></script>
-    <script src="/jszip" type="text/javascript"></script>
-    <script src="/filesaver" type="text/javascript"></script>
-    <script src="/excel" type="text/javascript"></script>
-    <script src="/index" type="text/javascript"></script>
-  </body>
+  </div>
+  <script src="/jquery" type="text/javascript"></script>
+  <script src="/jszip" type="text/javascript"></script>
+  <script src="/filesaver" type="text/javascript"></script>
+  <script src="/excel" type="text/javascript"></script>
+  <script src="/index" type="text/javascript"></script>
+</body>
+
 </html>
