@@ -1,7 +1,8 @@
 # Bert Inventory
 ### About
 Bert Inventory was created to keep track of FRC team 4750's growing inventory system, as well as add accountability to the usage of these parts.
-![Demo](https://github.com/ngregrichardson/BertInventory/tree/master/src/images/demo.gif "Demo")
+
+![Demo](https://github.com/ngregrichardson/BertInventory/blob/master/src/images/demo.gif)
 ### Features
 - Local Node based server to store inventory parts
 - Store name, amount, last person who counted the part, and where the part is stored
